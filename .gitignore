@@ -89,3 +89,6 @@ yarn-error.log*
 
 # macOS için
 .DS_Store
+
+_App.tsx
+.gitignore
