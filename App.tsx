@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { Linking } from 'react-native';
-import { TextInput } from 'react-native';
+import { Image, Text, View, SafeAreaView, StyleSheet, Modal, Linking, TextInput } from 'react-native';
 import CustomButton from './components/customButton'
 
 const HelloWorldApp = () => {
@@ -21,17 +17,43 @@ const HelloWorldApp = () => {
                 <ClickTracker></ClickTracker>
                 <Print></Print>
             </View>
+            <View>
+                <PrintPopUp></PrintPopUp>
+            </View>
         </SafeAreaView>
     );
 };
+
+const PrintPopUp = () => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    const PrintButtonPress = () => {
+        setIsVisible(true)
+    }
+
+    return (
+        <View>
+            <CustomButton title='ekrana yazdir popup' onPress={PrintButtonPress}></CustomButton>
+
+            <Modal animationType='slide' transparent={true} visible={isVisible}>
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalText}>Test Yazisi</Text>
+                        <CustomButton title='tamam' onPress={() => setIsVisible(false)}></CustomButton>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    )
+}
 
 const ClickTracker = () => {
     const [count, setCount] = useState(0)
 
     return (
         <View>
-            <Text style={styles.clicktracker}>butona { count } kez basildi</Text>
-            <CustomButton title='sayac icin tikla' onPress={ () => setCount(count+1) }></CustomButton>
+            <Text style={styles.clicktracker}>butona {count} kez basildi</Text>
+            <CustomButton title='sayac icin tikla' onPress={() => setCount(count + 1)}></CustomButton>
         </View>
     )
 }
@@ -43,7 +65,7 @@ const Print = () => {
         setMessage('test yazisi')
     }
 
-    return(
+    return (
         <View>
             <CustomButton title='ekrana yazdir' onPress={PrintButtonPress}></CustomButton>
             {message ? <Text style={styles.printText}>{message}</Text> : null}
@@ -77,8 +99,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     dataContainer: {
-/*         alignItems: 'center',
-        justifyContent: 'center' */
+        /*         alignItems: 'center',
+                justifyContent: 'center' */
     },
     clicktracker: {
         marginTop: 10,
@@ -88,7 +110,24 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 18,
         fontWeight: 'bold',
-      },
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Arka planı hafif koyu yapmak için
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
 })
 
 export default HelloWorldApp;

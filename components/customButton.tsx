@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 const CustomButton: React.FC<ButtonProps> = ({ title, onPress }) => {
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8,
         padding: 10,
+        margin: 10
     },
     buttonText: {
         color: 'black',
